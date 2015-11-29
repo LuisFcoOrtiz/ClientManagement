@@ -39,6 +39,38 @@ public class WorkWithDatabase {
         
     } //End createNewDatabase method
     
+    
+    /**     
+    * Send a query with for a database 
+    * @param  query  send query String          
+    */    
+    public void sendQuery (String query) throws SQLException {
+        //Send a query can be update, create table, etc        
+        Statement statement = connection.createStatement();
+        //Set timeout to 30 sec for a query.
+        statement.setQueryTimeout(30);
+        //send query at all
+        statement.executeUpdate(query);
+    
+    } //End of sendQuery method
+    
+    /**     
+    * Insert data into the database sending a query
+    * @param  tableName  name of table for create a new table      
+    * @param  columns   Name of columns and datatypes (INT, TEXT, CHAR, VARCHAR) 
+    */    
+    public void createTable (String tableName, String columns) throws SQLException {
+        //Send a query can be update, create table, etc        
+        Statement statement = connection.createStatement();
+        //Set timeout to 30 sec for a query.
+        statement.setQueryTimeout(30);
+        //Create a new table with parameters
+        statement.executeUpdate("CREATE TABLE "+tableName+"(" +
+        columns+
+        ");");
+    
+    } //End CreateTable method
+    
     /**     
     * Insert data into the database sending a query
     * @param  tableName  name of table for send a query.           
@@ -52,7 +84,7 @@ public class WorkWithDatabase {
         //send a query with tableName and values parameters. (values need "" because its a String)
         statement.executeUpdate("INSERT INTO "+tableName+" VALUES ("+values+");");
     
-    } //End of queryForDatabase method
+    } //End of InsertData method
     
     /**     
     * Show dates from table selecting the table name

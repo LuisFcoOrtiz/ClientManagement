@@ -21,13 +21,11 @@ public class ProyectPrueba {
     //Principal function of the program
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         
-        WorkWithDatabase prueba = new WorkWithDatabase();
-        prueba.createNewDatabase("prueba_de_database.db");
-        prueba.showDatabase("*", "vicentillo");
-        //prueba.queryForDatabase("create table IF NOT EXISTS vicentillo (id integer, name string)");
-        //prueba.InsertData("vicentillo", "2, 'luis'");
-        
-        
+        WorkWithDatabase musicDatabase = new WorkWithDatabase();
+        musicDatabase.createNewDatabase("musicDatabase.db");
+        musicDatabase.createTable("prueba", "ID int primary key,"
+                + "name VARCHAR(30) not null,"
+                + "duration int not null");
     } // end of main program
     
 } //End of main class of program

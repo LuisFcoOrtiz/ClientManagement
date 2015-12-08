@@ -1,0 +1,29 @@
+EL usuario podrá introducir manualmente los datos del cliente.
+
+TABLA CLIENTES:
+
+id "Se pondrá automaticamente"
+nombre completo
+direccion
+materia (Asignatura)
+cuota
+
+TABLA MESES:
+id "atomaticamente"
+ID Cliente
+Enero
+Febrero
+Marzo
+Abril
+Mayo
+Junio
+Julio
+Agosto
+Septiembre
+Octubre
+Noviembre
+Diciembre
+
+Durante 12 meses de Enero a Febrero el usuario debera poder contabilizar si un cliente ha pagado
+un mes o no.
+Por ejemplo Enero el cliente con el ID 23 si ha pagado.

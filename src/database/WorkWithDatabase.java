@@ -65,7 +65,7 @@ public class WorkWithDatabase {
         //Set timeout to 30 sec for a query.
         statement.setQueryTimeout(30);
         //Create a new table with parameters
-        statement.executeUpdate("CREATE TABLE "+tableName+"(" +
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS "+tableName+"(" +
         columns+
         ");");
     
@@ -104,5 +104,6 @@ public class WorkWithDatabase {
         }
         
     } //End of showDatabase
+        
     
 } //End of Class WorkWithDatabase

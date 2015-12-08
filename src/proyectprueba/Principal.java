@@ -19,11 +19,15 @@ public class Principal extends javax.swing.JFrame {
     
     //Create object dataBase to work whit it!!
     WorkWithDatabase dataBase = new WorkWithDatabase();
+    
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Principal() throws SQLException, ClassNotFoundException {
+        //Main program
         initComponents();
+        //Work with database pagos.db
+        dataBase.createNewDatabase("DB/pagos.db");
         
     }
 
@@ -39,7 +43,6 @@ public class Principal extends javax.swing.JFrame {
         botonAceptar = new javax.swing.JButton();
         textEnter = new javax.swing.JTextField();
         textExit = new javax.swing.JTextField();
-        createDatabaseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,13 +60,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        createDatabaseButton.setText("Create Database");
-        createDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createDatabaseButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,17 +74,12 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(textEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addComponent(botonAceptar)
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(createDatabaseButton)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(createDatabaseButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textEnter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonAceptar))
@@ -104,6 +95,7 @@ public class Principal extends javax.swing.JFrame {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         
         try {
+            //insert data in selected table
             dataBase.InsertData("clientes", textEnter.getText());
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,19 +103,6 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonAceptarActionPerformed
     
-    //This button create a new database 
-    private void createDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createDatabaseButtonActionPerformed
-        
-        
-        try {
-            dataBase.createNewDatabase("pagos.db");
-            textExit.setText("!Base de datos creada!");
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_createDatabaseButtonActionPerformed
-
     private void textEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEnterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textEnterActionPerformed
@@ -158,14 +137,19 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                try {
+                    new Principal().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
-    private javax.swing.JButton createDatabaseButton;
     private javax.swing.JTextField textEnter;
     private javax.swing.JTextField textExit;
     // End of variables declaration//GEN-END:variables

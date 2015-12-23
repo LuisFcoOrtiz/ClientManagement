@@ -104,6 +104,17 @@ public class WorkWithDatabase {
         }
         
     } //End of showDatabase
+    
+    /****************/
+    //add new client only use for table CLIENT
+    public void newClient (String nombre, String direccion, String materia, Integer cuota) throws SQLException {
+              
+        Statement statement = connection.createStatement();
+        //Set timeout to 30 sec for a query.
+        statement.setQueryTimeout(30);
+        //add new client
+        statement.executeUpdate("INSERT INTO clientes VALUES (NULL,'"+nombre+"','"+direccion+"','"+materia+"',"+cuota+");");
         
+    } //End newClient
     
 } //End of Class WorkWithDatabase

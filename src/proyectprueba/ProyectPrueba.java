@@ -5,8 +5,12 @@
  */
 package proyectprueba;
 
+import clientes.ClientPDF;
+import com.itextpdf.text.DocumentException;
+import database.SeeClient;
 import database.WorkWithDatabase;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
@@ -22,23 +26,19 @@ public class ProyectPrueba {
      * @throws java.sql.SQLException
      */
     //Principal function of the program
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, FileNotFoundException, DocumentException {
         
-        WorkWithDatabase dataBase = new WorkWithDatabase();
-        dataBase.createNewDatabase("pagos.db");
-        dataBase.InsertData("clientes", "NULL,'pepe', 'yes'");
-        /*try {             
-            Process p = Runtime.getRuntime().exec("cmd /C dir /b /s C:\\Users\\LFOM\\Desktop\\manrique\\musica\\selección musical\\house");  
-            BufferedReader in = new BufferedReader(  
-                                new InputStreamReader(p.getInputStream()));  
-            String line = null;  
-            while ((line = in.readLine()) != null) {  
-                System.out.println(line);  
-            }  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }*/
-        
+        /*
+        //Return to Client class
+        Clientes clientes = new Clientes ();
+        clientes.setVisible(true);
+        */
+        ClientPDF prueba = new ClientPDF("prueba.pdf");
+        prueba.addAuthor("luis");
+        prueba.addParagraph("esto es una prueba 4");
+        prueba.addTable(10,10,"holiiiis");
+        prueba.closePDF();
+                
     } // end of main program
     
 } //End of main class of program

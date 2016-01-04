@@ -92,15 +92,16 @@ public class WorkWithDatabase {
     * @param  tableName select the table for see his content   
     * @throws java.sql.SQLException   
     */ 
-    public void showDatabase(String dates, String tableName) throws SQLException {
+    public void showData (String dates, String tableName) throws SQLException {
     
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select "+dates+" from "+tableName+"");
         //System.out.println (resultSet.first());
         while(resultSet.next()) {
           // read the result set
-          System.out.println("name = " + resultSet.getString("name"));
-          System.out.println("id = " + resultSet.getInt("id"));
+          System.out.println("name = " + resultSet.getString("nombre"));
+          System.out.println("Direccion = " + resultSet.getInt("direccion"));
+          System.out.println("materia = " + resultSet.getInt("materia"));
         }
         
     } //End of showDatabase

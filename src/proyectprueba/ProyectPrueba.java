@@ -32,13 +32,13 @@ public class ProyectPrueba {
         //Return to Client class
         Clientes clientes = new Clientes ();
         clientes.setVisible(true);
-        */
+        
         ClientPDF prueba = new ClientPDF("prueba.pdf");
         prueba.addAuthor("luis");
         prueba.addParagraph("esto es una prueba 4");
         prueba.addTable(10,10,"holiiiis");
         prueba.closePDF();
-                
+        */        
     } // end of main program
     
 } //End of main class of program

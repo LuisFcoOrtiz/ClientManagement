@@ -68,16 +68,24 @@ public class ClientPDF {
     * @param columns number of columns for the table
     * @param rows number of rows or cells for the table
     * @param content content of each cell
+    * @param contentTwo second content for each cell
+    * @param contentThree third content for each cell
+    * @param contentFour fourth content for each cell
     * @throws com.itextpdf.text.DocumentException
     */
-    public void addTable (Integer columns, Integer rows, String content) throws DocumentException {
+    public void addTable (Integer columns, Integer rows, String content, String contentTwo, String contentThree, String contentFour) throws DocumentException {
         
         PdfPTable table = new PdfPTable(columns);        
-        for (int i = 0; i < rows; i++)
-        {
-            table.addCell(content);
+        for (int i = 0; i < rows; i++) {
             
-        }
+            //add each content for each cell
+            table.addCell(content);
+            table.addCell(contentTwo);
+            table.addCell(contentThree);
+            table.addCell(contentFour);
+            
+        } //End for 
+        
         //add the table into the document
         document.add(table);
     

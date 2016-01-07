@@ -83,22 +83,32 @@ public class SeeClient {
         System.out.println(rows.getString("COUNT(*)"));
         
     } //End of numberOfRows
-
+    
+    //*********************//
     //THIS ONLY FOR CREATE A PDF
     public void clientInPDF() throws SQLException, FileNotFoundException, DocumentException {
         
+        //Query for database 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select * from clientes");
         //FOR PDF
-        ClientPDF clientPDF = new ClientPDF("prueba.pdf");
-        //        
+        ClientPDF clientPDF = new ClientPDF("clientes.pdf");
+        clientPDF.addAuthor("Administrador empresa");
+        clientPDF.addParagraph("Lista con toda la información de los clientes");
+        clientPDF.addParagraph("");
+        //Header of table
+        clientPDF.addTable(4, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "MATERIA", "CUOTA A PAGAR");
+        //result for database in table for PDF
         while(resultSet.next()) {
-            
-          // read the result set and add paragraph with it          
-          //clientPDF.addParagraph(resultSet.getString("nombre"));
-          clientPDF.addTable(1, 1,resultSet.getString("nombre") );
-        }
+          
+            //4 numbers of columns and 1 number of row for each client
+          clientPDF.addTable(4, 1, resultSet.getString("nombre"), resultSet.getString("direccion"), resultSet.getString("materia"), resultSet.getString("cuota")+" €" );          
+          
+        } //End while
+        
+        //End the PDF document
         clientPDF.closePDF();
-    }
+    } //End clientPDF ONLY FOR PDF CLIENT
+    //*********************//
     
 } //End of SeeClient class

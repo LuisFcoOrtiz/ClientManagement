@@ -9,6 +9,7 @@ import com.itextpdf.text.DocumentException;
 import database.SeeClient;
 import database.WorkWithDatabase;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,8 +46,8 @@ public class BusquedaClientes extends javax.swing.JFrame {
         irAIngresarCliente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableClient = new javax.swing.JTable();
-        textoSalida = new javax.swing.JTextField();
         imprimirClientes = new javax.swing.JButton();
+        exitText = new javax.swing.JTextField();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -80,8 +81,6 @@ public class BusquedaClientes extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tableClient);
 
-        textoSalida.setText("jTextField1");
-
         imprimirClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\LFOM\\Documents\\NetBeansProjects\\ProyectPrueba\\images\\printer.png")); // NOI18N
         imprimirClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,31 +88,29 @@ public class BusquedaClientes extends javax.swing.JFrame {
             }
         });
 
+        exitText.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imprimirClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(irAIngresarCliente)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(imprimirClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(irAIngresarCliente))
+                        .addGap(135, 135, 135)
+                        .addComponent(verClientes))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(textoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(verClientes)
-                                        .addGap(195, 195, 195))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 160, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                            .addComponent(exitText, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,10 +120,10 @@ public class BusquedaClientes extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(verClientes)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(textoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(exitText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(imprimirClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -141,11 +138,12 @@ public class BusquedaClientes extends javax.swing.JFrame {
         
         //To see client in interface        
         try {
-            String clientPrueba = null;
+            
+            String clientQuery = null;
             //work with database pagos.db
             client.createNewDatabase();
-            clientPrueba = client.showClients("*", "nombre");            
-            textoSalida.setText(clientPrueba);
+            clientQuery = client.showClients("*", "nombre");            
+            exitText.setText(clientQuery);
             client.numberOfRows();
             
         } catch (SQLException | ClassNotFoundException ex) {
@@ -174,17 +172,24 @@ public class BusquedaClientes extends javax.swing.JFrame {
     private void imprimirClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirClientesActionPerformed
         // TODO add your handling code here:        
         try {
+            
             //Work with database
             client.createNewDatabase();                        
-            //Create a PDF with clients
+            //Create a PDF with clients (SeeClient.java class)
             client.clientInPDF();
+            exitText.setText("Se ha creado un pdf con la lista total de clientes");
+            //Open the PDF document from his path
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "clientes.pdf");
             
         } catch (SQLException ex) {
             Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
-            textoSalida.setText("Error a la hora de crear un documento PDF");
+            exitText.setText("Error a la hora de crear un documento PDF");
         } catch (ClassNotFoundException | FileNotFoundException | DocumentException ex) {
             Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IOException ex) {
+            Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
+            exitText.setText("ERROR no se pudo abrir el PDF");
+        } // End try catch
     }//GEN-LAST:event_imprimirClientesActionPerformed
 
     /**
@@ -229,13 +234,13 @@ public class BusquedaClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField exitText;
     private javax.swing.JButton imprimirClientes;
     private javax.swing.JButton irAIngresarCliente;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tableClient;
-    private javax.swing.JTextField textoSalida;
     private javax.swing.JButton verClientes;
     // End of variables declaration//GEN-END:variables
 }

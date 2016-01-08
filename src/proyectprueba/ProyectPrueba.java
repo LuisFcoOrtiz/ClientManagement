@@ -28,11 +28,11 @@ public class ProyectPrueba {
     //Principal function of the program
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, FileNotFoundException, DocumentException {
         
-        /*
+        
         //Return to Client class
         Clientes clientes = new Clientes ();
         clientes.setVisible(true);
-        
+        /*
         ClientPDF prueba = new ClientPDF("prueba.pdf");
         prueba.addAuthor("luis");
         prueba.addParagraph("esto es una prueba 4");

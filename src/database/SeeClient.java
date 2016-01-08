@@ -95,7 +95,7 @@ public class SeeClient {
         ClientPDF clientPDF = new ClientPDF("clientes.pdf");
         clientPDF.addAuthor("Administrador empresa");
         clientPDF.addParagraph("Lista con toda la información de los clientes");
-        clientPDF.addParagraph("");
+        clientPDF.addParagraph("  ");
         //Header of table
         clientPDF.addTable(4, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "MATERIA", "CUOTA A PAGAR");
         //result for database in table for PDF
@@ -108,6 +108,7 @@ public class SeeClient {
         
         //End the PDF document
         clientPDF.closePDF();
+        
     } //End clientPDF ONLY FOR PDF CLIENT
     //*********************//
     

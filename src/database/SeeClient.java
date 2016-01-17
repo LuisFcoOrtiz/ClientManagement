@@ -37,7 +37,7 @@ public class SeeClient {
         
         // Create a new database. With name of database in parameter
         //Name and path of new database. 
-        connection = DriverManager.getConnection("jdbc:sqlite:DB/pagos.db");
+        connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/"+System.getProperty("user.name")+"/pagos.db");
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");
         

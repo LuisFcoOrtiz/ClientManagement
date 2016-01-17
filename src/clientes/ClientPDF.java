@@ -6,7 +6,6 @@
 package clientes;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -33,7 +32,7 @@ public class ClientPDF {
     public ClientPDF(String outFile) throws FileNotFoundException, DocumentException {
     
         // Creates a file with pdf extension (parameter outFile)
-        FileOutputStream pdfFile = new FileOutputStream(outFile);
+        FileOutputStream pdfFile = new FileOutputStream("C:/Users/"+System.getProperty("user.name")+"/Documents/"+outFile);
         // space between lines in pdf
         PdfWriter.getInstance(document,pdfFile).setInitialLeading(20);
         // Start the document to work with it

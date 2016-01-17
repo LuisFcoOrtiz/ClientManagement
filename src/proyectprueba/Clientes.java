@@ -6,6 +6,7 @@
 package proyectprueba;
 
 import database.WorkWithDatabase;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +28,8 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() throws SQLException, ClassNotFoundException {
         initComponents();
-        //work with database pagos.db
-        newClient.createNewDatabase("DB/pagos.db");
+        //creates thread for work with database
+        newClient.start();
 
     }
 
@@ -131,7 +132,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jLabel3.setText("Dirección");
 
-        jLabel5.setText("Materia");
+        jLabel5.setText("Concepto");
 
         informacion.setEditable(false);
         informacion.setBackground(new java.awt.Color(204, 204, 204));
@@ -142,7 +143,7 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        limpiar.setIcon(new javax.swing.ImageIcon("C:\\Users\\LFOM\\Documents\\NetBeansProjects\\ProyectPrueba\\images\\clean.png")); // NOI18N
+        limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Other/clean.png"))); // NOI18N
         limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarActionPerformed(evt);
@@ -164,29 +165,24 @@ public class Clientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cuota, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
-                                        .addComponent(ingresarCLiente)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(cambiarVista))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(42, 42, 42)
+                                .addComponent(ingresarCLiente)
+                                .addGap(30, 30, 30)
+                                .addComponent(cambiarVista))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3))))
+                                .addGap(10, 10, 10)
+                                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -242,7 +238,7 @@ public class Clientes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
@@ -296,6 +292,8 @@ public class Clientes extends javax.swing.JFrame {
         cuota.setValue(100);
         //Restart progressbar
         progressBar.setValue(0);
+        //Restart information text field
+        informacion.setText("");
         TitledBorder border = BorderFactory.createTitledBorder("");
         progressBar.setBorder(border);
     }//GEN-LAST:event_limpiarActionPerformed
@@ -377,4 +375,5 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JTextField nombre;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
-}
+
+} //End client class

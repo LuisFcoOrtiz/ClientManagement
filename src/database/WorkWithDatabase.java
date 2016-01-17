@@ -13,6 +13,8 @@ import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -20,25 +22,36 @@ import java.sql.Statement;
  * @author LFOM
  */
 //Class used for create a new Data base with Sqlite
-public class WorkWithDatabase {    
+public class WorkWithDatabase extends Thread {    
     
     //new object connection for all the class
-    Connection connection = null;
+    Connection connection = null;            
     
-    /**     
-    * Create a new database in root filesystem. and work with it 
-    * @param  dataBaseName  name of database.           
-    */    
-    public void createNewDatabase(String dataBaseName) throws SQLException, ClassNotFoundException {                
-        
-        // Create a new database. With name of database in parameter
-        //Name and path of new database. 
-        connection = DriverManager.getConnection("jdbc:sqlite:"+dataBaseName);
-        // load the sqlite-JDBC driver using the current class loader
-        Class.forName("org.sqlite.JDBC");
-        
-    } //End createNewDatabase method
-    
+    @Override
+    public void run() {
+        try {
+            // Create a new database. With name of database in parameter
+            //Name and path of new database.
+            connection = DriverManager.getConnection("jdbc:sqlite:DB/pagos.db");
+            // load the sqlite-JDBC driver using the current class loader
+            Class.forName("org.sqlite.JDBC");
+
+            /*CREATE THE MAIN TABLE CLIENTES FOR WORK WITH IT*/
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS`clientes` (\n" +
+                    "	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
+                    "	`nombre`	TEXT NOT NULL,\n" +
+                    "	`direccion`	TEXT NOT NULL,\n" +
+                    "	`materia`	TEXT NOT NULL,\n" +
+                    "	`cuota`	INTEGER NOT NULL\n" +
+                    ")");
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkWithDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WorkWithDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }            
     
     /**     
     * Send a query with for a database 
@@ -116,6 +129,6 @@ public class WorkWithDatabase {
         //add new client
         statement.executeUpdate("INSERT INTO clientes VALUES (NULL,'"+nombre+"','"+direccion+"','"+materia+"',"+cuota+");");
         
-    } //End newClient
+    } //End newClient    
     
 } //End of Class WorkWithDatabase

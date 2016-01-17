@@ -51,23 +51,22 @@ public class SeeClient {
     * @throws java.sql.SQLException   
     */ 
     public String showClients (String data, String dataEspecific) throws SQLException {                
-        
-        
-        
+                
+        String array[] = new String[5];
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select "+data+" from clientes");
         //System.out.println (resultSet.first());                
         while(resultSet.next()) {
             
           // read the result set
-          System.out.println("name = " + resultSet.getString(dataEspecific));
+          //System.out.println("name = " + resultSet.getString(dataEspecific));
           return ("name = " + resultSet.getString(dataEspecific));
-          
+          //PROBAR CON UN ARRAY
           
         }
         //return null;
-        return "holis";
-                
+        return null;
+                        
     } //End of showClients
     
     /**     
@@ -97,7 +96,7 @@ public class SeeClient {
         clientPDF.addParagraph("Lista con toda la información de los clientes");
         clientPDF.addParagraph("  ");
         //Header of table
-        clientPDF.addTable(4, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "MATERIA", "CUOTA A PAGAR");
+        clientPDF.addTable(4, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "CONCEPTO", "CUOTA A PAGAR");
         //result for database in table for PDF
         while(resultSet.next()) {
           

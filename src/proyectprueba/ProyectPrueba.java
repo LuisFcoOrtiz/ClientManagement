@@ -30,7 +30,7 @@ public class ProyectPrueba {
         
         
         //Return to Client class
-        Clientes clientes = new Clientes ();
+        MainMenu clientes = new MainMenu ();
         clientes.setVisible(true);
         /*
         ClientPDF prueba = new ClientPDF("prueba.pdf");

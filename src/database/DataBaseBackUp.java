@@ -29,7 +29,7 @@ public class DataBaseBackUp extends Thread {
     //database file
     File source = new File("C:/Users/"+System.getProperty("user.name")+"/pagos.db");
     //Database Backup in desktop with the  date of today
-    File dest = new File("C:/Users/"+System.getProperty("user.name")+"/Desktop/Backup "+month+"."+day+"."+year+"/pagos.db");        
+    File dest = new File("C:/Users/"+System.getProperty("user.name")+"/Desktop/Backup Client management "+month+"."+day+"."+year+"/pagos.db");        
     
     //Create a thread for copy pagos.db file and create a backup
     @Override

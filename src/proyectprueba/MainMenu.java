@@ -38,6 +38,7 @@ public class MainMenu extends javax.swing.JFrame {
         seeClient = new javax.swing.JButton();
         dataBaseBackup = new javax.swing.JButton();
         exitTextMain = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -67,6 +68,8 @@ public class MainMenu extends javax.swing.JFrame {
 
         exitTextMain.setForeground(new java.awt.Color(51, 51, 51));
 
+        jLabel1.setText("Aplicacion creada por manrique");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,6 +89,10 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(seeClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dataBaseBackup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(33, 33, 33))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +107,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(dataBaseBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(exitTextMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel1))
         );
 
         pack();
@@ -191,6 +199,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton addNewClient;
     private javax.swing.JButton dataBaseBackup;
     private javax.swing.JTextField exitTextMain;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton seeClient;
     // End of variables declaration//GEN-END:variables

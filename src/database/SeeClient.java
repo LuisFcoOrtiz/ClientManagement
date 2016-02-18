@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
@@ -45,41 +46,67 @@ public class SeeClient {
     
     /**     
     * Show dates from "clientes" table
-    * @param  data  data what you want to see. selecting the name of the column (* for all)   
-    * @param  dataEspecific Select the especific data from the name of column in data base
+    * @param  data  data what you want to see. selecting the name of the column (* for all)       
     * @return 
     * @throws java.sql.SQLException   
     */ 
-    public String showClients (String data, String dataEspecific) throws SQLException {                
-                
-        String array[] = new String[5];
+    public String showClients (String data) throws SQLException {                
+                        
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select "+data+" from clientes");
         //System.out.println (resultSet.first());                
         while(resultSet.next()) {
             
           // read the result set
-          //System.out.println("name = " + resultSet.getString(dataEspecific));
-          return ("name = " + resultSet.getString(dataEspecific));
-          //PROBAR CON UN ARRAY
-          
+          return (resultSet.getString(data));
+
         }
         //return null;
         return null;
                         
     } //End of showClients
+        
+    /**     
+    * Show especific data from a especific client in database
+    * @param  data  data what you want to see. selecting the name of the column (* for all)   
+    * @param  dataEspecific Select the especific data from the name of column in data base
+    * @return 
+    * @throws java.sql.SQLException   
+    */ 
+    public String wantClient(String data, String dataEspecific) throws SQLException {
+        
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select "+data+" from clientes where nombre = '"+dataEspecific+"'");
+        //System.out.println (resultSet.first());                
+        while(resultSet.next()) {
+            
+          // read the result set
+          return (resultSet.getString(data));
+
+        }
+        //return null;
+        return null;
+    
+    } //End of wantClient
+    
     
     /**     
     * show number of rows in database         
+     * @param dataSpecific
+     * @param data
+     * @return 
+     * @throws java.sql.SQLException
     */    
-    public void numberOfRows () throws SQLException {
+    public String numberOfRows ( String data , String dataSpecific) throws SQLException {
         //Send a query can be update, create table, etc        
         Statement statement = connection.createStatement();
         //Set timeout to 30 sec for a query.
         statement.setQueryTimeout(30);
         //send query at all
-        ResultSet rows = statement.executeQuery("SELECT COUNT(*) FROM clientes");
-        System.out.println(rows.getString("COUNT(*)"));
+        ResultSet rows = statement.executeQuery("SELECT COUNT(*) FROM clientes where "+data+"= '"+dataSpecific+"'");
+        //System.out.println(rows.getString("COUNT(*)"));
+        return rows.getString("COUNT(*)");
+        
         
     } //End of numberOfRows
     

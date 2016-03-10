@@ -67,7 +67,7 @@ public class SeeClient {
     } //End of showClients
         
     /**     
-    * Show especific data from a especific client in database
+    * want one client in database
     * @param  data  data what you want to see. selecting the name of the column (* for all)   
     * @param  dataEspecific Select the especific data from the name of column in data base
     * @return 
@@ -76,7 +76,7 @@ public class SeeClient {
     public String wantClient(String data, String dataEspecific) throws SQLException {
         
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select "+data+" from clientes where nombre = '"+dataEspecific+"'");
+        ResultSet resultSet = statement.executeQuery("select "+data+" from clientes where nombre LIKE '"+dataEspecific+"'");
         //System.out.println (resultSet.first());                
         while(resultSet.next()) {
             
@@ -103,12 +103,30 @@ public class SeeClient {
         //Set timeout to 30 sec for a query.
         statement.setQueryTimeout(30);
         //send query at all
-        ResultSet rows = statement.executeQuery("SELECT COUNT(*) FROM clientes where "+data+"= '"+dataSpecific+"'");
+        ResultSet rows = statement.executeQuery("SELECT COUNT(*) FROM clientes where "+data+" LIKE '"+dataSpecific+"'");
         //System.out.println(rows.getString("COUNT(*)"));
         return rows.getString("COUNT(*)");
-        
-        
+                
     } //End of numberOfRows
+    
+    /**     
+    * update client data, want a client and change his fields         
+     * @param client name of client for update
+     * @param name 
+     * @param address
+     * @param concept
+     * @param cuote
+     * @throws java.sql.SQLException
+    */    
+    public void updateClient (String client, String name, String address, String concept, String cuote) throws SQLException {
+        //Send a query can be update, create table, etc        
+        Statement statement = connection.createStatement();
+        //Set timeout to 30 sec for a query.
+        statement.setQueryTimeout(30);
+        //send query at all
+        statement.executeUpdate("update clientes SET nombre='"+name+"', direccion='"+address+"', materia='"+concept+"', cuota='"+cuote+"' where nombre LIKE '"+client+"';");
+    
+    } //End of sendQuery method
     
     //*********************//
     //THIS ONLY FOR CREATE A PDF

@@ -6,6 +6,7 @@
 package proyectprueba;
 
 import database.DataBaseBackUp;
+import database.WorkWithDatabase;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,11 +18,17 @@ import java.util.logging.Logger;
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    //object dataBase for work
+    WorkWithDatabase mainMenu = new WorkWithDatabase();
     /**
      * Creates new form MainMenu
      */
-    public MainMenu() {
+    public MainMenu() throws SQLException, ClassNotFoundException {
+        
         initComponents();
+        //Start with a new databae if not exist
+        mainMenu.start();
+        
     }
 
     /**
@@ -190,7 +197,13 @@ public class MainMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainMenu().setVisible(true);
+                try {
+                    new MainMenu().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -30,7 +30,8 @@ public class BusquedaClientes extends javax.swing.JFrame {
      */
     public BusquedaClientes() throws SQLException, ClassNotFoundException {
         initComponents();        
-        
+        //Work with database
+        client.createNewDatabase(); 
     }
 
     /**
@@ -53,7 +54,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         exitName = new javax.swing.JTextField();
         exitConcept = new javax.swing.JTextField();
-        exitAdress = new javax.swing.JTextField();
+        exitAddress = new javax.swing.JTextField();
         exitCuote = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -112,6 +113,11 @@ public class BusquedaClientes extends javax.swing.JFrame {
         jLabel6.setText("Cuota");
 
         modifyData.setText("modificar datos");
+        modifyData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyDataActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Other/clean.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +163,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
                                     .addComponent(exitCuote, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(exitAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(exitAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(exitConcept, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(36, 36, 36)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -184,7 +190,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(exitAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(exitAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(exitConcept, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,19 +222,17 @@ public class BusquedaClientes extends javax.swing.JFrame {
         //To see client in interface        
         try {
             
-            //Work with database
-            client.createNewDatabase();
             //This variable contains the number of rows obtains for the query
-            String clientes = client.numberOfRows("nombre", enterClient.getText());
+            String numeroClientes = client.numberOfRows("nombre", enterClient.getText());
             //Show in the text fields all the information if data exist
-            if (clientes.equals("0")){
+            if (numeroClientes.equals("0")){
                 
                 exitText.setText("No hay datos, introduzca el nombre correctamente");
             
             } else {           
                 
                 exitName.setText( client.wantClient("nombre", enterClient.getText()) );
-                exitAdress.setText( client.wantClient("direccion", enterClient.getText()) );
+                exitAddress.setText( client.wantClient("direccion", enterClient.getText()) );
                 exitConcept.setText( client.wantClient("materia", enterClient.getText()) );
                 exitCuote.setText( client.wantClient("cuota", enterClient.getText()) );
             
@@ -236,8 +240,6 @@ public class BusquedaClientes extends javax.swing.JFrame {
             
                         
         } catch (SQLException ex) {
-            Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
             Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
         //End of try catch
@@ -266,8 +268,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
         // TODO add your handling code here:        
         try {
             
-            //Work with database
-            client.createNewDatabase();                        
+                                   
             //Create a PDF with clients (SeeClient.java class)
             client.clientInPDF();
             exitText.setText("Se ha creado un pdf con la lista total de clientes (En la carpeta Documentos)");
@@ -279,7 +280,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
             exitText.setText("Error a la hora de crear un documento PDF");
-        } catch (ClassNotFoundException | FileNotFoundException | DocumentException ex) {
+        } catch (FileNotFoundException | DocumentException ex) {
             Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
@@ -291,7 +292,13 @@ public class BusquedaClientes extends javax.swing.JFrame {
         
         //Go to main menu
         MainMenu cambiarVista = null;
-        cambiarVista = new MainMenu ();
+        try {
+            cambiarVista = new MainMenu ();
+        } catch (SQLException ex) {
+            Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cambiarVista.setVisible(true);
         dispose();
         
@@ -303,15 +310,37 @@ public class BusquedaClientes extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        //Clean all the files
+        //Clean all the fields
         exitText.setText("");
         exitName.setText("");
-        exitAdress.setText("");
+        exitAddress.setText("");
         exitConcept.setText("");
         exitCuote.setText("");
         enterClient.setText("");
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void modifyDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyDataActionPerformed
+        
+        //Check if fields are empty
+        if ( enterClient.getText().trim().isEmpty() || exitName.getText().trim().isEmpty() || exitAddress.getText().trim().isEmpty() || exitCuote.getText().trim().isEmpty() || exitConcept.getText().trim().isEmpty() ) {
+            
+            exitText.setText("No puede haber campos vacios para modificar cliente");
+            
+        } else {
+            
+            //update the client with other data
+            try {
+                client.updateClient( enterClient.getText(), exitName.getText(), exitAddress.getText(), exitConcept.getText(), exitCuote.getText() );
+                exitText.setText("cliente actualizado con éxito");
+            } catch (SQLException ex) {
+                Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
+                exitText.setText("ERROR al modificar datos, contacte con el administrador");
+            } //end try catch
+            
+        } //end alese
+        
+    }//GEN-LAST:event_modifyDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,12 +371,11 @@ public class BusquedaClientes extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new BusquedaClientes().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(BusquedaClientes.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -356,7 +384,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField enterClient;
-    private javax.swing.JTextField exitAdress;
+    private javax.swing.JTextField exitAddress;
     private javax.swing.JTextField exitConcept;
     private javax.swing.JTextField exitCuote;
     private javax.swing.JTextField exitName;

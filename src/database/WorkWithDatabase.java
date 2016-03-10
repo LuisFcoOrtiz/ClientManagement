@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * @author LFOM
  */
 //Class used for create a new Data base with Sqlite
-public class WorkWithDatabase extends Thread {    
+public class WorkWithDatabase extends Thread  {    
     
     //new object connection for all the class
     Connection connection = null;            
@@ -51,7 +51,21 @@ public class WorkWithDatabase extends Thread {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WorkWithDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }            
+    } //End run
+    
+    /**     
+    * Create a new database in DB/pagos.db. and work with it
+    * ONLY IN DB/pagos.db path
+    */    
+    public void workWithDatabase() throws SQLException, ClassNotFoundException {                
+        
+        // Create a new database. With name of database in parameter
+        //Name and path of new database. 
+        connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/"+System.getProperty("user.name")+"/pagos.db");
+        // load the sqlite-JDBC driver using the current class loader
+        Class.forName("org.sqlite.JDBC");
+        
+    } //End createNewDatabase method
     
     /**     
     * Send a query with for a database 
@@ -120,9 +134,36 @@ public class WorkWithDatabase extends Thread {
     } //End of showDatabase
     
     /****************/
+    //ONLY FOR TABLE CLIENTES
+    
+    /**     
+    * want a client especific
+    * @param  data  data what you want to see. selecting the name of the column (* for all)   
+    * @param  dataEspecific Select the especific data from the name of column in data base
+    * @return 
+    * @throws java.sql.SQLException  
+    */ 
+    public String wantClient(String data, String dataEspecific) throws SQLException {
+        
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select "+data+" from clientes where nombre LIKE '"+dataEspecific+"'");
+        //System.out.println (resultSet.first());
+        String checkClient = null;
+        while(resultSet.next()) {
+            
+          // read the result set
+          checkClient = (resultSet.getString(data));
+          return (resultSet.getString(data));
+            
+        }
+        //return null;
+        return checkClient;
+    
+    } //End of wantClient
+        
     //add new client only use for table CLIENT
     public void newClient (String nombre, String direccion, String materia, Integer cuota) throws SQLException {
-              
+        
         Statement statement = connection.createStatement();
         //Set timeout to 30 sec for a query.
         statement.setQueryTimeout(30);

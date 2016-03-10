@@ -6,11 +6,10 @@
 package proyectprueba;
 
 import database.WorkWithDatabase;
-import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 
@@ -25,11 +24,13 @@ public class Clientes extends javax.swing.JFrame {
      
     /**
      * Creates new form Clientes
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public Clientes() throws SQLException, ClassNotFoundException {
         initComponents();
         //creates thread for work with database
-        newClient.start();
+        newClient.workWithDatabase();
 
     }
 
@@ -262,31 +263,42 @@ public class Clientes extends javax.swing.JFrame {
     private void ingresarCLienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarCLienteActionPerformed
         //New client button, create a new client
         try {
-            
+            //newClient.workWithDatabase();
+            String existclient = newClient.wantClient("nombre",nombre.getText());
+            String clientEntry = nombre.getText();
             //validate if fields are empty and show a dialog
             if ( nombre.getText().trim().isEmpty() || direccion.getText().trim().isEmpty() || materia.getText().trim().isEmpty()) {                                
                 
                 informacion.setText("No puede haber campos vacios");                                
+            //compare if String are equals    
+            } /* TRY TO CHECK IF EXIST A CLIENT
+            else if (existclient.equalsIgnoreCase(clientEntry)) { //If not exist create a new client
                 
-            }else {
+                informacion.setText("Cliente existe, compruebe base de datos");
+
+            }*/else {
+                                
+                    //add a new client
+                    newClient.newClient(nombre.getText(), direccion.getText(), materia.getText(),cuota.getValue());
+                    progressBar.setValue(100);
+                    progressBar.setStringPainted(true);
+                    TitledBorder border = BorderFactory.createTitledBorder("Guardado con exito");
+                    progressBar.setBorder(border);
                 
-                //add a new client
-                newClient.newClient(nombre.getText(), direccion.getText(), materia.getText(),cuota.getValue());
-                progressBar.setValue(100);
-                progressBar.setStringPainted(true);
-                TitledBorder border = BorderFactory.createTitledBorder("Guardado con exito");
-                progressBar.setBorder(border);
-            
-            }
+            } //end if, else secundary
+                                            
             
         } catch (SQLException ex) {
+            
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             //Error message if data base has trouble
-            informacion.setText("ERROR, hay problemas con la base de datos");
-        } //End try catch
+            informacion.setText("ERROR, hay problemas con la base de datos");            
+            
+        }
+        
         
     }//GEN-LAST:event_ingresarCLienteActionPerformed
-
+    
     private void direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_direccionActionPerformed
@@ -330,7 +342,13 @@ public class Clientes extends javax.swing.JFrame {
         
         //Go to main menu
         MainMenu cambiarVista = null;
-        cambiarVista = new MainMenu ();
+        try {
+            cambiarVista = new MainMenu ();
+        } catch (SQLException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cambiarVista.setVisible(true);
         dispose();
         

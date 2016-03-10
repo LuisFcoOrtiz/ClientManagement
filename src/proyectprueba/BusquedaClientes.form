@@ -68,7 +68,7 @@
                                   <Component id="exitCuote" min="-2" pref="214" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="exitAdress" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
+                                          <Component id="exitAddress" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
                                           <Component id="exitConcept" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="exitAdress" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="exitAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -196,7 +196,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="exitConcept">
     </Component>
-    <Component class="javax.swing.JTextField" name="exitAdress">
+    <Component class="javax.swing.JTextField" name="exitAddress">
     </Component>
     <Component class="javax.swing.JTextField" name="exitCuote">
     </Component>
@@ -219,6 +219,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="modificar datos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modifyDataActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>

@@ -123,10 +123,26 @@ public class SeeClient {
         Statement statement = connection.createStatement();
         //Set timeout to 30 sec for a query.
         statement.setQueryTimeout(30);
-        //send query at all
+        //update client with news params
         statement.executeUpdate("update clientes SET nombre='"+name+"', direccion='"+address+"', materia='"+concept+"', cuota='"+cuote+"' where nombre LIKE '"+client+"';");
     
-    } //End of sendQuery method
+    } //End of updateClient method
+    
+    /**     
+    * drop row from a table name, where nombre of client is (clientName)
+     * @param tableName     name of table
+     * @param clientName    name of client to drop    
+     * @throws java.sql.SQLException
+    */    
+    public void deleteClient (String tableName, String clientName) throws SQLException {
+        //Send a query can be update, create table, etc        
+        Statement statement = connection.createStatement();
+        //Set timeout to 30 sec for a query.
+        statement.setQueryTimeout(30);
+        //drop client 
+        statement.executeUpdate("DELETE FROM '"+tableName+"' WHERE nombre LIKE'"+clientName+"';");
+    
+    } //End of deleteClient method
     
     //*********************//
     //THIS ONLY FOR CREATE A PDF
@@ -137,7 +153,8 @@ public class SeeClient {
         ResultSet resultSet = statement.executeQuery("select * from clientes");
         //FOR PDF
         ClientPDF clientPDF = new ClientPDF("clientes.pdf");
-        clientPDF.addAuthor("Administrador empresa");
+        //author is name of pc
+        clientPDF.addAuthor(System.getProperty("user.name"));
         clientPDF.addParagraph("Lista con toda la información de los clientes");
         clientPDF.addParagraph("  ");
         //Header of table

@@ -156,7 +156,7 @@ public class SeeClient {
         //author is name of pc
         clientPDF.addAuthor(System.getProperty("user.name"));
         clientPDF.addParagraph("Lista con toda la información de los clientes");
-        clientPDF.addParagraph("  ");
+        clientPDF.addParagraph("  ");      
         //Header of table
         clientPDF.addTable(4, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "CONCEPTO", "CUOTA A PAGAR");
         //result for database in table for PDF

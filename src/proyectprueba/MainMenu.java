@@ -5,13 +5,17 @@
  */
 package proyectprueba;
 
+import database.CryptoException;
+import database.CryptoUtils;
 import database.DataBaseBackUp;
 import database.WorkWithDatabase;
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.IllegalBlockSizeException;
 import javax.swing.JFileChooser;
 
 /**
@@ -22,13 +26,50 @@ public class MainMenu extends javax.swing.JFrame {
 
     //object dataBase for work
     WorkWithDatabase mainMenu = new WorkWithDatabase();
+    
+    //Files for encrypt and decrypt (CryptoUtils.java)
+    File inputFile = new File("C:/Users/"+System.getProperty("user.name")+"/pagos.db");
+    File encryptedFile = new File("C:/Users/"+System.getProperty("user.name")+"/pagos.db");
+    File decryptedFile = new File("C:/Users/"+System.getProperty("user.name")+"/pagos.db");
+    //
+    
     /**
      * Creates new form MainMenu
+     * ALL code here start with the program
      */
     public MainMenu() throws SQLException, ClassNotFoundException {
         
+        //initial components
         initComponents();
-        //Start with a new databae if not exist
+        
+        //Decrypt database pagos.db
+        try {
+            CryptoUtils.decrypt( encryptedFile, decryptedFile);
+        } catch (CryptoException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } //end decrypt
+        
+        //Start a Thread for encrypt database when program close
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                try {
+                    //encrypt pagos.db when program is close
+                    CryptoUtils.encrypt( inputFile, encryptedFile);
+                } catch (CryptoException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalBlockSizeException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } //end run
+        }, "Shutdown-thread")); //End run time and close thread
+        
+        //Check if database exists
         mainMenu.start();
         
     }

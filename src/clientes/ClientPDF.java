@@ -7,11 +7,14 @@ package clientes;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  *
@@ -89,6 +92,28 @@ public class ClientPDF {
         document.add(table);
     
     } //end addTable
+    
+    /**
+     *add image in PDF document
+     * @param corporativeImage image transparent watermark URL
+     */
+    public void addImage(String corporativeImage) {
+    
+        try {
+            
+            //image watermark transparent URL
+            Image image1 = Image.getInstance(corporativeImage);
+            //absolute position
+            image1.setAbsolutePosition(100f, 100f);
+            document.add(image1);            
+            
+            //document.add(image2);
+            
+            } catch(DocumentException | IOException e){
+                
+        } //End try catch
+        
+    } //End addImage        
     
     /**
     * close and create the document 

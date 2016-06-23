@@ -63,6 +63,8 @@ public class BusquedaClientes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         deleteButtom = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        exitEmail = new javax.swing.JTextField();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -136,6 +138,8 @@ public class BusquedaClientes extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Correo electrónico");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,24 +168,29 @@ public class BusquedaClientes extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(exitName, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(exitAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(exitConcept, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(exitCuote, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(exitEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(exitCuote, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                            .addGap(77, 77, 77))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(exitName, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(exitAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                                .addComponent(exitConcept, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                                            .addGap(36, 36, 36)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(33, 33, 33)
                         .addComponent(modifyData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(deleteButtom, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))))
+                        .addGap(67, 67, 67))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,11 +219,15 @@ public class BusquedaClientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(exitCuote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(exitEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(modifyData)
                     .addComponent(deleteButtom))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(exitText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +260,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
                 exitAddress.setText( client.wantClient("direccion", enterClient.getText()) );
                 exitConcept.setText( client.wantClient("materia", enterClient.getText()) );
                 exitCuote.setText( client.wantClient("cuota", enterClient.getText()) );
-            
+                exitEmail.setText(client.wantClient("email", enterClient.getText()) );
             } //End if else    
             
                         
@@ -328,6 +341,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
         exitAddress.setText("");
         exitConcept.setText("");
         exitCuote.setText("");
+        exitEmail.setText("");
         enterClient.setText("");
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -422,6 +436,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
     private javax.swing.JTextField exitAddress;
     private javax.swing.JTextField exitConcept;
     private javax.swing.JTextField exitCuote;
+    private javax.swing.JTextField exitEmail;
     private javax.swing.JTextField exitName;
     private javax.swing.JTextField exitText;
     private javax.swing.JButton imprimirClientes;
@@ -433,6 +448,7 @@ public class BusquedaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton mainMenu;
     private javax.swing.JButton modifyData;

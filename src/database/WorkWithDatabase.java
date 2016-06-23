@@ -42,6 +42,7 @@ public class WorkWithDatabase extends Thread  {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS`clientes` (\n" +
                     "	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
                     "	`nombre`	TEXT NOT NULL,\n" +
+                    "	`email`	TEXT NOT NULL,\n" +
                     "	`direccion`	TEXT NOT NULL,\n" +
                     "	`materia`	TEXT NOT NULL,\n" +
                     "	`cuota`	INTEGER NOT NULL\n" +
@@ -162,13 +163,13 @@ public class WorkWithDatabase extends Thread  {
     } //End of wantClient
         
     //add new client only use for table CLIENT
-    public void newClient (String nombre, String direccion, String materia, Integer cuota) throws SQLException {
+    public void newClient (String nombre,String email, String direccion, String materia, Integer cuota) throws SQLException {
         
         Statement statement = connection.createStatement();
         //Set timeout to 30 sec for a query.
         statement.setQueryTimeout(30);
         //add new client
-        statement.executeUpdate("INSERT INTO clientes VALUES (NULL,'"+nombre+"','"+direccion+"','"+materia+"',"+cuota+");");
+        statement.executeUpdate("INSERT INTO clientes VALUES (NULL,'"+nombre+"','"+email+"','"+direccion+"','"+materia+"',"+cuota+");");
         
     } //End newClient    
     

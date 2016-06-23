@@ -75,7 +75,7 @@ public class ClientPDF {
     * @param contentFour fourth content for each cell
     * @throws com.itextpdf.text.DocumentException
     */
-    public void addTable (Integer columns, Integer rows, String content, String contentTwo, String contentThree, String contentFour) throws DocumentException {
+    public void addTable (Integer columns, Integer rows, String content, String contentTwo, String contentThree, String contentFour, String contentFive ) throws DocumentException {
         
         PdfPTable table = new PdfPTable(columns);        
         for (int i = 0; i < rows; i++) {
@@ -85,6 +85,7 @@ public class ClientPDF {
             table.addCell(contentTwo);
             table.addCell(contentThree);
             table.addCell(contentFour);
+            table.addCell(contentFive);
             
         } //End for 
         

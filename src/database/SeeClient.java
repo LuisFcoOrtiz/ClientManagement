@@ -158,12 +158,12 @@ public class SeeClient {
         clientPDF.addParagraph("Lista con toda la información de los clientes");
         clientPDF.addParagraph("  ");      
         //Header of table
-        clientPDF.addTable(4, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "CONCEPTO", "CUOTA A PAGAR");
+        clientPDF.addTable(5, 1, "NOMBRE COMPLETO", "DIRECCIÓN", "CONCEPTO", "CUOTA A PAGAR", "Correo Electrónico");
         //result for database in table for PDF
         while(resultSet.next()) {
           
             //4 numbers of columns and 1 number of row for each client
-          clientPDF.addTable(4, 1, resultSet.getString("nombre"), resultSet.getString("direccion"), resultSet.getString("materia"), resultSet.getString("cuota")+" €" );          
+          clientPDF.addTable(5, 1, resultSet.getString("nombre"), resultSet.getString("direccion"), resultSet.getString("materia"), resultSet.getString("cuota")+" €" , resultSet.getString("email") );          
           
         } //End while
         

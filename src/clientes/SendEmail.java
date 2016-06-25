@@ -20,10 +20,6 @@ import javax.mail.internet.MimeMessage;
  * Class for send a Email to clients
  */
 public class SendEmail {        
-       
-    //Email and pass from server
-    final String username = "client.management.notifier@gmail.com";
-    final String password = "YlIXaMMfSkav9RSN5Cu5";
     
     /**
     *send email to client

@@ -9,6 +9,12 @@ Gestión de clientes desde aplicación de escritorio (Java)
 * Listado y creación de PDF con clientes
 * Envio de notificaciones via E-mail a clientes
 * Creación de copia de seguridad de base de datos para posterior recuperación
+* Todo el codigo esta escrito en Inglés
+
+Algunas capturas:
+![captura](https://cloud.githubusercontent.com/assets/8844134/17967501/d38f9880-6ac7-11e6-8592-1988c0f7deb8.JPG)
+
+![captura 3](https://cloud.githubusercontent.com/assets/8844134/17967508/e83bf51c-6ac7-11e6-991f-891ef632dd08.JPG)
 
 ## Aplicación aun en desarrollo.
 

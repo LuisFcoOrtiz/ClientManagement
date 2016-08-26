@@ -10,7 +10,7 @@ Gestión de clientes desde aplicación de escritorio (Java)
 * Listado y creación de PDF con clientes
 * Envio de notificaciones via E-mail a clientes
 * Creación de copia de seguridad de base de datos para posterior recuperación
-* Todo el codigo esta escrito en Inglés
+* __Todo el codigo esta escrito en Inglés__
 
 ###Algunas capturas:
 
